@@ -9,29 +9,29 @@ Admiral Systems is a digital agency. This vault is the shared company knowledge 
 
 ```
 admiral-systems/
-  00-inbox/              ← Quick capture for company items
-  05-command/            ← Strategy, OKRs, leadership decisions, key meetings
+  inbox/              ← Quick capture for company items
+  command/            ← Strategy, OKRs, leadership decisions, key meetings
     strategy.md
     okrs/                ← Quarterly OKRs
     decisions/           ← Strategic decision log
     meetings/            ← leadership/, all-hands/, retros/
-  10-clients/            ← One folder per client
+  clients/            ← One folder per client
     _client-index.md     ← Master list of all clients
     _template-client/    ← Copy this for new clients
-  15-delivery/           ← Sprint management, capacity, risks, processes
+  delivery/           ← Sprint management, capacity, risks, processes
     sprint-current.md
     sprint-archive/
     capacity.md
     risks.md
     processes/           ← Delivery SOPs
-  20-team/               ← Team roster, hiring, onboarding
+  team/               ← Team roster, hiring, onboarding
     _team-roster.md
     _hiring/
     _onboarding/
-  25-operations/         ← Internal tools and SOPs
-  30-finance/            ← Revenue tracking, billing, budgets
-  35-growth/             ← Pipeline, proposals, case studies, partnerships
-  40-templates/          ← Company templates (tpl-*.md)
+  operations/         ← Internal tools and SOPs
+  finance/            ← Revenue tracking, billing, budgets
+  growth/             ← Pipeline, proposals, case studies, partnerships
+  templates/          ← Company templates (tpl-*.md)
 ```
 
 ## Conventions
@@ -64,16 +64,16 @@ status: active | draft | review | archived
 ### Content Routing Rules
 | Content Type | Destination |
 |---|---|
-| Strategy & OKRs | `05-command/` |
-| Client work | `10-clients/{client-name}/` |
-| Sprint & delivery | `15-delivery/` |
-| Team management | `20-team/` |
-| Tools & SOPs | `25-operations/` |
-| Financial tracking | `30-finance/` |
-| Sales & growth | `35-growth/` |
+| Strategy & OKRs | `command/` |
+| Client work | `clients/{client-name}/` |
+| Sprint & delivery | `delivery/` |
+| Team management | `team/` |
+| Tools & SOPs | `operations/` |
+| Financial tracking | `finance/` |
+| Sales & growth | `growth/` |
 
 ## Team
-See `20-team/_team-roster.md` for the current roster.
+See `team/_team-roster.md` for the current roster.
 
 ## Active Clients
-See `10-clients/_client-index.md` for the current client list.
+See `clients/_client-index.md` for the current client list.
