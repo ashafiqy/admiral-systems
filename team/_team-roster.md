@@ -15,5 +15,5 @@ status: active
 
 ## Onboarding New Team Members
 1. Add them to this roster
-2. Create a folder in `20-team/{name}/`
+2. Create a folder in `team/{name}/`
 3. Follow the onboarding checklist in `_onboarding/`
