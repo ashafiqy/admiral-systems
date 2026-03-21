@@ -1,0 +1,28 @@
+# Obsidian
+.obsidian/workspace*.json
+.obsidian/workspace/
+.trash/
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Environment
+.env
+.env.*
+
+# Large binaries (use cloud storage instead)
+*.zip
+*.tar.gz
+*.rar
+*.pdf
+*.pptx
+*.xlsx
+*.docx
+*.mp4
+*.mov
+*.mp3
+
+# Node
+node_modules/
