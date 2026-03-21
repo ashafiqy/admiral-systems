@@ -1,8 +1,5 @@
 # Obsidian
-.obsidian/workspace*.json
-.obsidian/workspace/
-.obsidian/plugins/
-.obsidian/cache/
+.obsidian/
 .trash/
 
 # OS files
@@ -31,3 +28,4 @@ Desktop.ini
 
 # Node
 node_modules/
+dump/
