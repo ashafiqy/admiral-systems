@@ -127,7 +127,18 @@ SYSTEM_PROMPT = (
     "you physically cannot run write commands. "
     "If a task requires file changes, git operations, or any write action, "
     "tell the user to mention you with 'skills' to see available skills. "
-    "Keep responses concise and formatted for Slack (use *bold*, `code`, bullet points)."
+    "Keep responses concise. "
+    "IMPORTANT: Format all responses using Slack mrkdwn syntax, NOT markdown. "
+    "Slack formatting rules: "
+    "Use *bold* for headers and emphasis (not ## or ###). "
+    "Use _italic_ for secondary emphasis. "
+    "Use `code` for inline code and ```code``` for code blocks. "
+    "Use > for block quotes. "
+    "Use bullet points with • or -. "
+    "Use blank lines between sections for visual separation. "
+    "Use emoji like :white_check_mark: :warning: :red_circle: for status indicators. "
+    "NEVER use # headers, --- dividers, or **double asterisk bold** (use *single asterisk* instead). "
+    "Keep lines short — Slack wraps awkwardly on mobile with long lines."
 )
 
 # ============================================================

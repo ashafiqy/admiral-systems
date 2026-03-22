@@ -15,6 +15,11 @@ Reverse-chronological log of structural changes to the Admiral Systems vault. Fu
 
 ## 2026-03-22
 
+- Connected skills to Linear MCP for live task data — 5 skills now query Linear directly
+- Added [[skill-digest-and-create]] — full workflow for digesting client input into vault + Linear
+- Removed `delivery/linear/` folder — CSV exports replaced by live Linear MCP queries
+- Updated Slack bot system prompt for proper Slack mrkdwn formatting
+- Added unified bot skill system with 11 query skills + dynamic loading from `.claude/commands/`
 - Added [[remote-claude-architecture]] — full system architecture doc (bots, ETL, Agent Teams)
 - Added [[wsl-claude-slack-setup]] — Slack bot setup guide with full Python script
 - Moved [[wsl-claude-telegram-setup]] from `dump/` to `operations/tools/`
