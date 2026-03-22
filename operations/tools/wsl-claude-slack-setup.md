@@ -121,6 +121,21 @@ The bot restricts who can interact with it using Slack user IDs. To find a user'
 4. Click **Copy member ID**
 
 The ID looks like `U04A1B2C3D4`. Collect IDs for each person who should be allowed to use the bot.
+```
+Allowed IDs
+# Valentine
+U08SWUP0UDV
+# Daz
+U0142V7NALQ
+# Rohan
+U06PJG1EJ6T
+# Davis
+U019C2TKM4J
+# Sean Ng
+U02A4CF2QAW
+# Shafiq
+U0A8C0E3610
+```
 
 ---
 
@@ -148,7 +163,15 @@ from slack_bolt.adapter.socket_mode import SocketModeHandler
 # ============================================================
 SLACK_BOT_TOKEN = "xoxb-your-bot-token"
 SLACK_APP_TOKEN = "xapp-your-app-token"
-ALLOWED_USER_IDS = ["U12345678"]  # List of allowed Slack user IDs
+SLACK_USERS = [
+    {"slack_id": "U08SWUP0UDV", "name": "Valentine"},
+    {"slack_id": "U0142V7NALQ", "name": "Daz"},
+    {"slack_id": "U06PJG1EJ6T", "name": "Rohan"},
+    {"slack_id": "U019C2TKM4J", "name": "Davis"},
+    {"slack_id": "U02A4CF2QAW", "name": "Sean Ng"},
+    {"slack_id": "U0A8C0E3610", "name": "Shafiq"},
+]
+ALLOWED_USER_IDS = [user["slack_id"] for user in SLACK_USERS]
 REPO_DIR = os.path.expanduser("~/repos/your-repo")
 CLAUDE_PATH = "/usr/bin/claude"
 MAX_MESSAGE_LENGTH = 3000  # Slack's limit is lower than Telegram
