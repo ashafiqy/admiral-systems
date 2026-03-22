@@ -29,6 +29,10 @@ admiral-systems/
     _hiring/
     _onboarding/
   operations/         ← Internal tools and SOPs
+    agent-playbooks/     ← Agent workflow definitions
+    beta-workflow/       ← Beta engagement workflow
+    sops/                ← Standard operating procedures
+    tools/               ← Setup guides, scripts, architecture docs
   finance/            ← Revenue tracking, billing, budgets
   growth/             ← Pipeline, proposals, case studies, partnerships
   templates/          ← Company templates (tpl-*.md)
@@ -69,11 +73,20 @@ status: active | draft | review | archived
 | Sprint & delivery | `delivery/` |
 | Team management | `team/` |
 | Tools & SOPs | `operations/` |
+| Internal tools & setup guides | `operations/tools/` |
+| Strategic decisions & vision docs | `command/decisions/` |
 | Financial tracking | `finance/` |
 | Sales & growth | `growth/` |
 
+## System Architecture
+See [[remote-claude-architecture]] for the remote access system design (bots, ETL, Agent Teams).
+See [[admiral-systems-knowledge-vault-brief]] for the original ETL vision.
+
+## Change History
+See [[HISTORY]] for a log of structural changes to this vault.
+
 ## Team
-See `team/_team-roster.md` for the current roster.
+See [[_team-roster]] for the current roster.
 
 ## Active Clients
-See `clients/_client-index.md` for the current client list.
+See [[_client-index]] for the current client list.
