@@ -137,6 +137,20 @@ U02A4CF2QAW
 U0A8C0E3610
 ```
 
+```
+Limited Allow IDs (Junior Members)
+# Tiara
+U099KN99P2P
+# Elfajri
+U09RSRC6FJA
+# Luthfi
+U0A2KEKMS01
+# Mona
+U0A7KQZJH88
+# Haykal
+U05GFHVLYFQ
+```
+
 ---
 
 ## 4. Create the Bot Script

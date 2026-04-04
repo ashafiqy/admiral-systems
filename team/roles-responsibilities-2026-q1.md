@@ -26,11 +26,11 @@ Leadership & Partners
 
 Senior Team
 
-| Name | Role | Core Responsibilities |
-| :---- | :---- | :---- |
-| Shafiq  | Delivery Lead / PM | Linear workspace management, issue creation & oversight, UAT management, junior team management, workflow SOPs |
-| Davis | Technical Lead | Webflow development, technical QA, technical mentorship for juniors |
-| Sean | Design Lead  | Figma design, UI/UX, design community presence, component & nav design  |
+| Name   | Role               | Core Responsibilities                                                                                          |
+| :----- | :----------------- | :------------------------------------------------------------------------------------------------------------- |
+| Shafiq | Delivery Lead / PM | Linear workspace management, issue creation & oversight, UAT management, junior team management, workflow SOPs |
+| Davis  | Technical Lead     | Webflow development, technical QA, technical mentorship for juniors                                            |
+| Sean   | Design Lead        | Figma design, UI/UX, design community presence, component & nav design                                         |
 
 Junior Team
 
