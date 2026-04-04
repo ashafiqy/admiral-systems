@@ -1,7 +1,7 @@
 ---
 title: Vault Change History
 created: 2026-03-22
-updated: 2026-03-22
+updated: 2026-04-05
 tags:
   - type/reference
 status: active
@@ -12,6 +12,12 @@ status: active
 Reverse-chronological log of structural changes to the Admiral Systems vault. Future sessions should append to this file when making significant vault changes.
 
 ---
+
+## 2026-04-05
+
+- Added limited-allow Slack IDs for junior team members (Tiara, Elfajri, Luthfi, Mona, Haykal) to [[wsl-claude-slack-setup]]
+- Added `/commit` and `/history` Claude Code slash commands
+- Fixed markdown table formatting in [[roles-responsibilities-2026-q1]]
 
 ## 2026-03-22
 
