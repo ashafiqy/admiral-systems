@@ -78,6 +78,28 @@ status: active | draft | review | archived
 | Financial tracking | `finance/` |
 | Sales & growth | `growth/` |
 
+## Templates
+
+**Always check `templates/` before creating new content.** Use the matching template when one exists.
+
+| Template | Use When |
+|---|---|
+| `tpl-linear-task.md` | Creating Linear issues — RACI, acceptance criteria, blockers, dropoff (mandatory structure) |
+| `tpl-linear-project.md` | Creating Linear projects — project brief, team, milestones, resources |
+| `tpl-linear-milestone.md` | Creating Linear milestones — goal, in-scope issues, done-when criteria |
+| `tpl-client-brief.md` | Setting up a new client folder — overview, contacts, scope, key dates |
+| `tpl-meeting-notes.md` | Capturing meeting notes — agenda, discussion, decisions, action items |
+| `tpl-sop.md` | Writing SOPs — purpose, when to use, steps, owner |
+| `tpl-project-tracker.md` | Tracking a project in the vault — milestones, tasks, risks, log |
+| `tpl-sprint-review.md` | Sprint reviews — completed, carry-over, metrics, next focus |
+| `tpl-retro.md` | Retrospectives — went well, didn't go well, improvements, action items |
+
+Also see `operations/agent-playbooks/` for agent-specific workflows (e.g. `client-feedback-playbook.md` for the full Linear issue creation flow).
+
+### Linear Rules
+- **Never create issues with status "Triage".** Always create new issues with status **"Backlog"** only. Do not set Todo, In Progress, or any other state — the team will manually move issues forward.
+- **Every issue must have an estimate.** Use the scale: 1 pt = 1hr, 2 pts = 2hrs, 3 pts = 3hrs, 4 pts = 4hrs, 5 pts = 5hrs.
+
 ## System Architecture
 See [[remote-claude-architecture]] for the remote access system design (bots, ETL, Agent Teams).
 See [[admiral-systems-knowledge-vault-brief]] for the original ETL vision.

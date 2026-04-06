@@ -1,7 +1,7 @@
 ---
 title: Linear Formatting Standards
 created: 2026-03-10
-updated: 2026-03-21
+updated: 2026-04-06
 tags:
   - operations/standards
   - delivery/linear
@@ -45,3 +45,16 @@ Reference template: [[tpl-linear-task]]
 3. **Done When** — max 3 checkboxes
 
 Reference template: [[tpl-linear-milestone]]
+
+---
+
+## Issue Status — Default on Creation
+
+- **Never create issues with status "Triage".** Always create new issues with status **"Backlog"** only. Do not set Todo, In Progress, or any other state — the team will manually move issues forward.
+- Triage is reserved for issues that enter Linear through external integrations or automations and need human review before being actioned.
+
+## Estimates — Mandatory
+
+- **Every issue must have an estimate.** No issue should be created without one.
+- Scale: 1 pt = 1hr, 2 pts = 2hrs, 3 pts = 3hrs, 4 pts = 4hrs, 5 pts = 5hrs.
+- If a task exceeds 5 pts (5hrs), split it into sub-tasks.

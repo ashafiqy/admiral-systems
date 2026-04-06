@@ -1,7 +1,7 @@
 ---
 title: Vault Change History
 created: 2026-03-22
-updated: 2026-04-05
+updated: 2026-04-06
 tags:
   - type/reference
 status: active
@@ -12,6 +12,15 @@ status: active
 Reverse-chronological log of structural changes to the Admiral Systems vault. Future sessions should append to this file when making significant vault changes.
 
 ---
+
+## 2026-04-06
+
+- Digested Granola sprint planning notes (`inbox/Granola Action items 06 Apr 2026.md` → archived to `inbox/archive/`) — 7 Linear issues created, 3 comments added; see per-client HISTORY.md files for details
+- Created client vault folders for ORG (`clients/admiral-gamma-org/`) and Wallex (`clients/admiral-retainer-wallex/`)
+- Populated `clients/_client-index.md` with all 6 active clients
+- Created build environment SOP (`operations/sops/sop-build-environment.md`) — all builds must start in Admiral's workspace
+- Added Templates section to [[CLAUDE]] with lookup table for all 9 vault templates
+- Added Linear Rules to [[CLAUDE]] and [[linear-standards]] — issues always created as Backlog with mandatory estimates
 
 ## 2026-04-05
 
