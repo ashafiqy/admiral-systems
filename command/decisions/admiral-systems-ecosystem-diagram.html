@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admiral Systems — Ecosystem Architecture</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0d1117; color: #c9d1d9; overflow-x: hidden; }
+  h1 { text-align: center; padding: 24px 0 8px; font-size: 22px; color: #f0f6fc; }
+  .subtitle { text-align: center; font-size: 13px; color: #8b949e; margin-bottom: 24px; }
+  .legend { display: flex; justify-content: center; gap: 24px; margin-bottom: 20px; font-size: 12px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-live { background: #3fb950; }
+  .dot-progress { background: #d29922; }
+  .dot-planned { background: #484f58; }
+  .canvas { position: relative; width: 1200px; margin: 0 auto; min-height: 900px; }
+
+  .node {
+    position: absolute;
+    border-radius: 10px;
+    padding: 14px 18px;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    z-index: 2;
+  }
+  .node:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); z-index: 10; }
+  .node-title { font-weight: 700; font-size: 13px; margin-bottom: 4px; }
+  .node-detail { font-size: 11px; color: #8b949e; line-height: 1.4; }
+  .node-status { font-size: 10px; font-weight: 600; margin-top: 6px; padding: 2px 8px; border-radius: 10px; display: inline-block; }
+
+  .status-live { background: rgba(63,185,80,0.15); color: #3fb950; border: 1px solid rgba(63,185,80,0.3); }
+  .status-progress { background: rgba(210,153,34,0.15); color: #d29922; border: 1px solid rgba(210,153,34,0.3); }
+  .status-planned { background: rgba(72,79,88,0.3); color: #8b949e; border: 1px solid rgba(72,79,88,0.5); }
+
+  .cat-interface { background: #1c2333; border: 1px solid #30363d; }
+  .cat-core { background: #161b22; border: 2px solid #58a6ff; }
+  .cat-mcp { background: #1a1e2e; border: 1px solid #6e40c9; }
+  .cat-external { background: #1a2332; border: 1px solid #30363d; }
+  .cat-vault { background: #0d2818; border: 1px solid #238636; }
+  .cat-team { background: #2a1a0e; border: 1px solid #d29922; }
+
+  .tooltip {
+    display: none;
+    position: absolute;
+    background: #1c2333;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 14px 18px;
+    max-width: 320px;
+    font-size: 12px;
+    line-height: 1.5;
+    z-index: 100;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+    pointer-events: none;
+  }
+  .tooltip-title { font-weight: 700; font-size: 14px; color: #f0f6fc; margin-bottom: 6px; }
+  .tooltip ul { padding-left: 16px; margin-top: 4px; }
+  .tooltip li { margin-bottom: 2px; }
+
+  svg.arrows {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+  }
+  svg.arrows line {
+    stroke: #30363d;
+    stroke-width: 1.5;
+    stroke-dasharray: 6 4;
+  }
+  svg.arrows .arrow-live { stroke: #3fb950; stroke-dasharray: none; stroke-width: 2; }
+  svg.arrows .arrow-data { stroke: #58a6ff; stroke-dasharray: 4 3; }
+
+  .section-label {
+    position: absolute;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #484f58;
+  }
+
+  @media (max-width: 1240px) {
+    .canvas { transform: scale(0.85); transform-origin: top center; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Admiral Systems — Ecosystem Architecture</h1>
+<p class="subtitle">How Slack, Claude Code, MCP, Linear, and the Vault connect | Updated 2026-04-06</p>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot dot-live"></div> Live</div>
+  <div class="legend-item"><div class="legend-dot dot-progress"></div> In Progress</div>
+  <div class="legend-item"><div class="legend-dot dot-planned"></div> Planned</div>
+</div>
+
+<div class="canvas" id="canvas">
+
+  <!-- Section Labels -->
+  <div class="section-label" style="top:10px;left:20px;">TEAM INTERFACES</div>
+  <div class="section-label" style="top:170px;left:20px;">AI ENGINE</div>
+  <div class="section-label" style="top:380px;left:20px;">MCP LAYER</div>
+  <div class="section-label" style="top:560px;left:20px;">EXTERNAL SERVICES</div>
+  <div class="section-label" style="top:560px;right:20px;">VAULT (GITHUB)</div>
+
+  <!-- === INTERFACES === -->
+  <div class="node cat-interface" style="left:80px;top:40px;width:220px;" data-tooltip="slack-bot">
+    <div class="node-title">Davy Jones — Slack Bot</div>
+    <div class="node-detail">
+      Channel: dept-delivery_team<br>
+      Standup, /blocker, smart grouping<br>
+      Visibility tagging, Linear integration
+    </div>
+    <div class="node-status status-live">Live</div>
+  </div>
+
+  <div class="node cat-interface" style="left:480px;top:40px;width:220px;" data-tooltip="telegram-bot">
+    <div class="node-title">Telegram Bot</div>
+    <div class="node-detail">
+      Personal query interface<br>
+      Skill execution, git operations<br>
+      Read-only vault access
+    </div>
+    <div class="node-status status-live">Live</div>
+  </div>
+
+  <div class="node cat-interface" style="left:880px;top:40px;width:220px;" data-tooltip="cli">
+    <div class="node-title">Direct CLI (WSL2)</div>
+    <div class="node-detail">
+      Full Claude Code access<br>
+      Agent Teams, interactive sessions<br>
+      Read + Write vault access
+    </div>
+    <div class="node-status status-live">Live</div>
+  </div>
+
+  <!-- === CLAUDE CODE CORE === -->
+  <div class="node cat-core" style="left:200px;top:195px;width:780px;" data-tooltip="claude-core">
+    <div class="node-title">Claude Code (WSL2 Runtime)</div>
+    <div class="node-detail" style="display:flex;gap:40px;">
+      <div>
+        <strong style="color:#58a6ff;">Skills & Commands</strong><br>
+        /commit, /vault-sync, /history<br>
+        /skill-linear-status, /skill-risks<br>
+        /skill-all-projects, /admiral-ideas<br>
+        /skill-digest-and-create + 8 more
+      </div>
+      <div>
+        <strong style="color:#58a6ff;">Agent Playbooks</strong><br>
+        create-linear-project<br>
+        create-issue-agent<br>
+        client-feedback-playbook<br>
+        linear-quality-checker
+      </div>
+      <div>
+        <strong style="color:#58a6ff;">Standards</strong><br>
+        linear-standards.md<br>
+        priority-mapping.md<br>
+        tpl-linear-task.md<br>
+        9 templates total
+      </div>
+    </div>
+    <div class="node-status status-live">Live — 16 Skills, 7 Playbooks</div>
+  </div>
+
+  <!-- === MCP LAYER === -->
+  <div class="node cat-mcp" style="left:40px;top:405px;width:180px;" data-tooltip="mcp-linear">
+    <div class="node-title">MCP: Linear</div>
+    <div class="node-detail">Read + Write<br>Issues, projects, comments<br>Users, teams, milestones</div>
+    <div class="node-status status-live">Live</div>
+  </div>
+
+  <div class="node cat-mcp" style="left:260px;top:405px;width:180px;" data-tooltip="mcp-slack">
+    <div class="node-title">MCP: Slack</div>
+    <div class="node-detail">Read + Write<br>Messages, channels, search<br>Schedule, drafts, canvas</div>
+    <div class="node-status status-live">Live</div>
+  </div>
+
+  <div class="node cat-mcp" style="left:480px;top:405px;width:180px;" data-tooltip="mcp-gmail">
+    <div class="node-title">MCP: Gmail</div>
+    <div class="node-detail">Read only (planned)<br>Email threads, labels<br>Action item extraction</div>
+    <div class="node-status status-planned">Phase 2</div>
+  </div>
+
+  <div class="node cat-mcp" style="left:700px;top:405px;width:180px;" data-tooltip="mcp-drive">
+    <div class="node-title">MCP: Google Drive</div>
+    <div class="node-detail">Read only (planned)<br>Client files, Gemini notes<br>Meeting summaries</div>
+    <div class="node-status status-planned">Phase 2</div>
+  </div>
+
+  <div class="node cat-mcp" style="left:920px;top:405px;width:180px;" data-tooltip="mcp-granola">
+    <div class="node-title">MCP: Granola</div>
+    <div class="node-detail">Read only (planned)<br>Meeting transcripts<br>Machine-local only</div>
+    <div class="node-status status-planned">Phase 2</div>
+  </div>
+
+  <!-- === EXTERNAL SERVICES === -->
+  <div class="node cat-external" style="left:40px;top:585px;width:180px;" data-tooltip="linear">
+    <div class="node-title">Linear</div>
+    <div class="node-detail">20+ projects, 1100+ issues<br>6 teams, 13 users<br>3 entities: AST, RMD, SPL</div>
+    <div class="node-status status-live">Live</div>
+  </div>
+
+  <div class="node cat-external" style="left:260px;top:585px;width:180px;" data-tooltip="slack">
+    <div class="node-title">Slack Workspace</div>
+    <div class="node-detail">dept-delivery_team<br>client channels<br>internal-vault-sync</div>
+    <div class="node-status status-live">Live</div>
+  </div>
+
+  <div class="node cat-external" style="left:480px;top:585px;width:180px;" data-tooltip="gmail">
+    <div class="node-title">Gmail / Google</div>
+    <div class="node-detail">Client email threads<br>Google Meet + Gemini AI<br>Google Drive files</div>
+    <div class="node-status status-planned">Phase 2</div>
+  </div>
+
+  <!-- === VAULT === -->
+  <div class="node cat-vault" style="left:700px;top:560px;width:400px;min-height:220px;" data-tooltip="vault">
+    <div class="node-title">Vault (GitHub: admiral-systems)</div>
+    <div class="node-detail" style="display:flex;gap:20px;">
+      <div>
+        <strong style="color:#3fb950;">Structure</strong><br>
+        clients/ (6 active)<br>
+        delivery/ (sprints)<br>
+        operations/ (playbooks)<br>
+        command/ (strategy)<br>
+        team/ (roster, R&R)
+      </div>
+      <div>
+        <strong style="color:#3fb950;">Standards</strong><br>
+        CLAUDE.md governance<br>
+        9 templates<br>
+        Per-client HISTORY.md<br>
+        Frontmatter + tags<br>
+        kebab-case naming
+      </div>
+    </div>
+    <div style="margin-top:10px;">
+      <div class="node-detail">
+        <strong style="color:#3fb950;">SOPs</strong>: Build environment policy<br>
+        <strong style="color:#3fb950;">Sync</strong>: /commit + /vault-sync across machines
+      </div>
+    </div>
+    <div class="node-status status-live">Live — Git-backed, Obsidian-compatible</div>
+  </div>
+
+  <!-- === TEAM === -->
+  <div class="node cat-team" style="left:700px;top:810px;width:400px;" data-tooltip="team">
+    <div class="node-title">Team (11 members across 3 entities)</div>
+    <div class="node-detail" style="display:flex;gap:20px;">
+      <div>
+        <strong style="color:#d29922;">Partners</strong><br>
+        Daz (COO)<br>
+        Rohan (Commercial)<br>
+        Valentin (Sprklabs)
+      </div>
+      <div>
+        <strong style="color:#d29922;">Seniors</strong><br>
+        Shafiq (PM)<br>
+        Davis (Tech Lead)<br>
+        Sean (Design Lead)
+      </div>
+      <div>
+        <strong style="color:#d29922;">Juniors</strong><br>
+        Tiara, Elfajri<br>
+        Luthfi, Haykal<br>
+        Mona
+      </div>
+    </div>
+  </div>
+
+  <!-- === ARROWS (SVG) === -->
+  <svg class="arrows" viewBox="0 0 1200 900" preserveAspectRatio="none">
+    <!-- Interfaces → Claude Code -->
+    <line x1="190" y1="130" x2="400" y2="195" class="arrow-live"/>
+    <line x1="590" y1="130" x2="590" y2="195" class="arrow-live"/>
+    <line x1="990" y1="130" x2="780" y2="195" class="arrow-live"/>
+
+    <!-- Claude Code → MCP Layer -->
+    <line x1="350" y1="330" x2="130" y2="405" class="arrow-live"/>
+    <line x1="450" y1="330" x2="350" y2="405" class="arrow-live"/>
+    <line x1="570" y1="330" x2="570" y2="405" class="arrow-data"/>
+    <line x1="690" y1="330" x2="790" y2="405" class="arrow-data"/>
+    <line x1="800" y1="330" x2="1010" y2="405" class="arrow-data"/>
+
+    <!-- MCP → External Services -->
+    <line x1="130" y1="500" x2="130" y2="585" class="arrow-live"/>
+    <line x1="350" y1="500" x2="350" y2="585" class="arrow-live"/>
+    <line x1="570" y1="500" x2="570" y2="585" class="arrow-data"/>
+
+    <!-- Claude Code → Vault -->
+    <line x1="850" y1="330" x2="900" y2="560" class="arrow-live"/>
+
+    <!-- Vault → Team -->
+    <line x1="900" y1="790" x2="900" y2="810" class="arrow-live"/>
+  </svg>
+
+</div>
+
+<!-- Tooltip element -->
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+const tooltips = {
+  'slack-bot': {
+    title: 'Davy Jones — Slack Bot',
+    content: '<ul><li>Daily standup prompt at 9:00 AM SGT</li><li>Standup collection with reaction tracking</li><li>/blocker slash command with modal form</li><li>Linear integration (comment + status update)</li><li>Visibility tagging: Shafiq+Daz always, domain experts by category</li><li>SQLite database (WAL mode)</li><li>Pending: summary compilation, smart grouping, office hours</li></ul>'
+  },
+  'telegram-bot': {
+    title: 'Telegram Bot',
+    content: '<ul><li>Personal query interface for Shafiq</li><li>Skill execution via /commands</li><li>Git pull/push operations</li><li>Read-only vault access (no Edit/Write)</li><li>Runs as systemd service on WSL2</li></ul>'
+  },
+  'cli': {
+    title: 'Direct CLI (WSL2 Terminal)',
+    content: '<ul><li>Full Claude Code access — all tools</li><li>Agent Teams for complex multi-step tasks</li><li>Interactive sessions with full context</li><li>Only interface that supports Agent Teams</li><li>Used for vault maintenance, project creation, PRD writing</li></ul>'
+  },
+  'claude-core': {
+    title: 'Claude Code — AI Engine',
+    content: '<ul><li>16 skills/commands available via all interfaces</li><li>7 agent playbooks for Linear workflows</li><li>9 vault templates enforced on content creation</li><li>Linear standards: Backlog status, mandatory estimates</li><li>RACI governance on all issue creation</li><li>Sensitive data rules enforced</li></ul>'
+  },
+  'mcp-linear': {
+    title: 'MCP: Linear Server',
+    content: '<ul><li>Full read/write access</li><li>list/get: teams, projects, users, issues, cycles, milestones</li><li>save: issues (always Backlog), comments, projects, milestones</li><li>Workspace: 3 entities (AST, RMD, SPL) under one org</li><li>Priority sync between labels and field values</li></ul>'
+  },
+  'mcp-slack': {
+    title: 'MCP: Slack',
+    content: '<ul><li>Full read/write access</li><li>Read: channels, threads, user profiles</li><li>Write: send messages, drafts, scheduled messages</li><li>Search: public, private, users, channels</li><li>Canvas: create, read, update</li></ul>'
+  },
+  'mcp-gmail': {
+    title: 'MCP: Gmail (Phase 2)',
+    content: '<ul><li>Read-only access planned</li><li>Search messages, read threads</li><li>Extract action items from client emails</li><li>List labels, read specific messages</li><li>Blocked: MCP not yet configured</li></ul>'
+  },
+  'mcp-drive': {
+    title: 'MCP: Google Drive (Phase 2)',
+    content: '<ul><li>Read-only access planned</li><li>Client files and shared Drive folders</li><li>Google Meet + Gemini AI auto-generated summaries</li><li>Meeting notes for ETL pipeline</li><li>Write access planned for Phase 3</li></ul>'
+  },
+  'mcp-granola': {
+    title: 'MCP: Granola (Phase 2)',
+    content: '<ul><li>Read-only access planned</li><li>Meeting transcripts and summaries</li><li>Machine-local dependency (no cloud API)</li><li>Only works where Granola is installed</li><li>Granola Enterprise evaluation in Phase 3</li></ul>'
+  },
+  'linear': {
+    title: 'Linear — Task Management',
+    content: '<ul><li>20+ projects across 6 teams</li><li>1100+ issues tracked</li><li>13 workspace users</li><li>3 entities: Admiral Systems, RMD, Sprklabs</li><li>Priority: p0-critical to p3-low with SLAs</li><li>Estimates: 1pt=1hr mandatory on all issues</li></ul>'
+  },
+  'slack': {
+    title: 'Slack Workspace',
+    content: '<ul><li>dept-delivery_team: main ops channel</li><li>Client-specific channels</li><li>internal-vault-sync: ETL notifications</li><li>test-ast-pm-bot: bot testing</li><li>Standup + blocker workflows</li></ul>'
+  },
+  'gmail': {
+    title: 'Gmail / Google Suite',
+    content: '<ul><li>Client email communication</li><li>Google Meet with Gemini AI summaries</li><li>Google Drive for shared documents</li><li>Future ETL source for vault entries</li></ul>'
+  },
+  'vault': {
+    title: 'Vault — GitHub Repository',
+    content: '<ul><li>Git-backed, Obsidian-compatible knowledge base</li><li>6 active client folders with per-client HISTORY.md</li><li>9 standard templates in templates/</li><li>Agent playbooks in operations/agent-playbooks/</li><li>SOPs in operations/sops/</li><li>CLAUDE.md governance document</li><li>Synced across machines via /commit + /vault-sync</li></ul>'
+  },
+  'team': {
+    title: 'Team Structure',
+    content: '<ul><li><strong>Partners:</strong> Daz (COO), Rohan (Commercial), Valentin (Sprklabs)</li><li><strong>Seniors:</strong> Shafiq (PM), Davis (Tech), Sean (Design)</li><li><strong>Juniors:</strong> Tiara, Elfajri, Luthfi, Haykal, Mona</li><li>Issue creation: seniors only</li><li>SOW approval: Rohan/Val draft, Shafiq/Davis approve</li><li>Linear updates: seniors before Monday standup, juniors by 10AM daily</li></ul>'
+  }
+};
+
+document.querySelectorAll('.node[data-tooltip]').forEach(node => {
+  const tip = document.getElementById('tooltip');
+
+  node.addEventListener('mouseenter', (e) => {
+    const key = node.dataset.tooltip;
+    const data = tooltips[key];
+    if (!data) return;
+    tip.innerHTML = `<div class="tooltip-title">${data.title}</div>${data.content}`;
+    tip.style.display = 'block';
+
+    const rect = node.getBoundingClientRect();
+    const canvasRect = document.getElementById('canvas').getBoundingClientRect();
+    let left = rect.right - canvasRect.left + 12;
+    let top = rect.top - canvasRect.top;
+
+    if (left + 320 > canvasRect.width) {
+      left = rect.left - canvasRect.left - 330;
+    }
+    tip.style.left = left + 'px';
+    tip.style.top = top + 'px';
+  });
+
+  node.addEventListener('mouseleave', () => {
+    tip.style.display = 'none';
+  });
+});
+</script>
+
+</body>
+</html>

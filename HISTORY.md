@@ -21,6 +21,11 @@ Reverse-chronological log of structural changes to the Admiral Systems vault. Fu
 - Created build environment SOP (`operations/sops/sop-build-environment.md`) — all builds must start in Admiral's workspace
 - Added Templates section to [[CLAUDE]] with lookup table for all 9 vault templates
 - Added Linear Rules to [[CLAUDE]] and [[linear-standards]] — issues always created as Backlog with mandatory estimates
+- Added `/vault-sync` Claude Code slash command — git pull for syncing vault across machines
+- Created ecosystem PRD (`command/decisions/admiral-systems-ecosystem-prd.md`) — comprehensive system architecture, data flows, integration map, standards, and roadmap
+- Created interactive HTML architecture diagram (`command/decisions/admiral-systems-ecosystem-diagram.html`)
+- Created migration plan: GitHub → Google Drive (`command/decisions/vault-migration-github-to-drive.md`)
+- Created `/changelog` skill to replace `/commit` post-migration
 
 ## 2026-04-05
 
