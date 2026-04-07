@@ -1,7 +1,7 @@
 ---
 title: Vault Change History
 created: 2026-03-22
-updated: 2026-04-06
+updated: 2026-04-07
 tags:
   - type/reference
 status: active
@@ -12,6 +12,11 @@ status: active
 Reverse-chronological log of structural changes to the Admiral Systems vault. Future sessions should append to this file when making significant vault changes.
 
 ---
+
+## 2026-04-07
+
+- Digested Delivery Team Sync Up notes (`inbox/7th April Delivery Team Sync Up.md` → archived) — 2 Linear issues for Haykal and Luthfi; see RCG client HISTORY.md
+- Routed Label-Cleanup-Pitch from `inbox/` → `command/decisions/label-cleanup-pitch.md`
 
 ## 2026-04-06
 
